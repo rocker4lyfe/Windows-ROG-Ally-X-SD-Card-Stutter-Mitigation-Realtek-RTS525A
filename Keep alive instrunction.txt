@@ -1,8 +1,8 @@
 SD Card Keep-Alive – Installation Instructions
 
-1. Put all three files in one folder
+1. Put all three files in one folder called KeepAlive_Script
 
-2. Create a folder anywhere (e.g. Desktop\SDKeepAlive) and save sd_keepalive.ps1, install_sd_keepalive.ps1, and remove_sd_keepalive.ps1 into it together. The installer copies sd_keepalive.ps1 from its own folder, so they must sit side by side.
+2. Create a folder anywhere but we will be using documents (e.g. Documents\KeepAlive_Script) and save sd_keepalive.ps1, install_sd_keepalive.ps1, and remove_sd_keepalive.ps1 into it together. The installer copies sd_keepalive.ps1 from its own folder, so they must sit side by side.
 
 3. Confirm your SD card's drive letter is D:
 Open File Explorer and check the drive letter assigned to your SD card. If it isn't D:, edit line 5 of sd_keepalive.ps1 (change $CARD_DRIVE = "D:") before installing, since both the script and installer assume D: throughout.
@@ -11,9 +11,10 @@ Open File Explorer and check the drive letter assigned to your SD card. If it is
 Click Start, type PowerShell, then right-click 'Windows PowerShell' and choose 'Run as administrator'. Approve the UAC prompt that appears.
 
 5. Navigate back to your script folder
-cd "C:\Users\spate\Documents\KeepAlive_Script"
+cd "C:\Users\[username]\Documents\KeepAlive_Script"
 
-6. Windows blocks unsigned scripts by default. Run this in the PowerShell window to allow it for just this session (doesn't change your system-wide policy): Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+6. Allow Unsigned Scripts for one session
+Windows blocks unsigned scripts by default. Run this in the PowerShell window to allow it for just this session (doesn't change your system-wide policy): Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 7. Run the installer
 Type .\install_sd_keepalive.ps1 and press Enter. You should see green confirmation text once the scheduled task is created and started.
