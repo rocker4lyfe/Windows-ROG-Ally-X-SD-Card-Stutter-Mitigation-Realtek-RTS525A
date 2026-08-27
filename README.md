@@ -1,5 +1,6 @@
-DISCLAIMER: I have used chatgpt to help me diagnose this issue and write this text. This was tested on a Rog Ally X running bazzite, A windows version could be made. 
-(I will proof read later, I just wanted to have this publicly available.)
+DISCLAIMER: I forked this from original, I used ChatGPT & Claude to swap the code over from Linux to Windows. I have tested this on my Rog Xbox Ally X and the stuttering issues have gone away.
+
+Previous disclaimer: I have used chatgpt to help me diagnose this issue and write this text. This was tested on a Rog Ally X running bazzite.
 
 # ROG Ally X – SD Card Stutter Fix  
 ### Realtek RTS525A Voltage-Switch Bug: Technical Summary & Workaround
@@ -67,17 +68,7 @@ This was validated experimentally:
 
 ---
 
-### 4. Script + Systemd User Service
-
-after creating scripts use the following to enable service:
-
-systemctl --user daemon-reload
-systemctl --user enable sd-keepalive.service
-systemctl --user start sd-keepalive.service
-
----
-
-### 5. Wear and Power Usage
+### 4. Wear and Power Usage
 NAND wear
 
 At 1 byte every 3 seconds
@@ -94,7 +85,7 @@ At 1 byte every 3 seconds
 
 ---
 
-### 6. Final Diagnosis
+### 5. Final Diagnosis
 
 Problem:
 Realtek RTS525A voltage-switch failures when recovering from deep idle.
@@ -110,12 +101,12 @@ Prevent the controller from entering the problematic idle state via a lightweigh
 
 ---
 
-### 7. Notes on PCIe ASPM (Active State Power Management)
+### 6. Notes on PCIe ASPM (Active State Power Management)
 
 ASPM was investigated because the Realtek RTS525A SD reader is a PCIe device.  
 On some systems, aggressive ASPM can cause latency spikes during link power-state transitions.
 
-### Findings from testing on the ROG Ally X
+### Findings from testing on the ROG Ally X (Linux)
 
 - The usual Linux interfaces for adjusting ASPM (`/sys/module/pcie_aspm/parameters/policy`, `/sys/bus/pci/.../link/*`) were either **read-only** or **not writable**.
 - This indicates that ASPM policy is **locked by firmware/BIOS** on the Ally X, and cannot be modified from the operating system.
