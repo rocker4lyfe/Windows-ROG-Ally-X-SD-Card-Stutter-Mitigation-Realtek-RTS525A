@@ -1,16 +1,22 @@
 SD Card Keep-Alive – Installation Instructions
 
-Make both scripts executable:
+1. Put all three files in one folder
 
-chmod +x sd_keepalive.sh
-chmod +x setup_sd_keepalive.sh
+2. Create a folder anywhere (e.g. Desktop\SDKeepAlive) and save sd_keepalive.ps1, install_sd_keepalive.ps1, and remove_sd_keepalive.ps1 into it together. The installer copies sd_keepalive.ps1 from its own folder, so they must sit side by side.
 
-./setup_sd_keepalive.sh
-systemctl --user status sd-keepalive.service
+3. Confirm your SD card's drive letter is D:
+Open File Explorer and check the drive letter assigned to your SD card. If it isn't D:, edit line 5 of sd_keepalive.ps1 (change $CARD_DRIVE = "D:") before installing, since both the script and installer assume D: throughout.
 
+4. Open PowerShell as Administrator
+Click Start, type PowerShell, then right-click 'Windows PowerShell' and choose 'Run as administrator'. Approve the UAC prompt that appears.
 
-Optional: Remove/disable the service
+5. Navigate back to your script folder
+cd "C:\Users\spate\Documents\KeepAlive_Script"
 
-Make the removal script executable:
-chmod +x remove_sd_keepalive.sh
-./remove_sd_keepalive.sh
+6. Windows blocks unsigned scripts by default. Run this in the PowerShell window to allow it for just this session (doesn't change your system-wide policy): Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+7. Run the installer
+Type .\install_sd_keepalive.ps1 and press Enter. You should see green confirmation text once the scheduled task is created and started.
+
+8. Verify it's running
+Check the .sd_keepalive file's timestamp updates every few seconds on the SD card, or run Get-ScheduledTaskInfo -TaskName "SD Card Keep-Alive" to confirm the task is active.
